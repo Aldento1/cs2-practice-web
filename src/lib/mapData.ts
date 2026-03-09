@@ -24,7 +24,7 @@ export const ancientCallouts: Callout[] = [
   // --- MID ---
   { id: "snipers_nest", name: "SNIPERS NEST / RED ROOM", left: 46.39, top: 28.81, width: 8.5, height: 9 },
   { id: "top_mid", name: "TOP MID", left: 47.5, top: 39, width: 8, height: 12 },
-  { id: "pit", name: "PIT", left: 53, top: 46.39, width: 7.81, height: 4.88 },
+  { id: "pit", name: "PIT / CUBBY", left: 53, top: 46.39, width: 7.81, height: 4.88 },
   { id: "mid", name: "MID", left: 47.5, top: 52, width: 10.74, height: 8 },
   { id: "xbox", name: "XBOX", left: 50, top: 58.11, width: 6, height: 3.91 },
   { id: "heaven", name: "HEAVEN", left: 60, top: 58, width: 13, height: 5 },
