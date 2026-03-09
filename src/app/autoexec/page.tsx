@@ -1,2 +1,2 @@
-"use client"; 
-export default function Page() { return <div className="p-10 text-white">Generator Autoexec - W budowie</div>; } 
+import AutoexecBuilder from "../../components/AutoexecBuilder";
+export default function Page() { return <div className="min-h-screen bg-black py-10"><AutoexecBuilder /></div>; }
