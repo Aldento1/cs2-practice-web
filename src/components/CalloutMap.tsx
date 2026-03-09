@@ -66,24 +66,24 @@ export default function CalloutMap() {
             </button>
           </div>
 
-          {/* OBJECTIVE PANEL */}
-          <div className="glass-card rounded-4xl panel-centered relative">
-            <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent" />
+{/* OBJECTIVE PANEL */}
+<div className="glass-card rounded-4xl panel-centered relative py-10"> {/* Dodałem py-10 dla lepszego oddechu przy dużym tekście */}
+  <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent" />
 
-            <p className="text-xs font-mono text-accent uppercase tracking-widest mb-2">
-              Current Objective
-            </p>
+  <p className="text-xs font-mono text-accent uppercase tracking-[0.3em] mb-4">
+    Current Objective
+  </p>
 
-            <h1 className="hero-title text-4xl md:text-6xl lg:text-8xl font-semibold tracking-tighter bg-linear-to-b from-white via-white/90 to-white/50 bg-clip-text text-transparent italic">
-              {target?.name ?? "-"}
-            </h1>
+  <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-bold tracking-tighter bg-linear-to-b from-white via-white/95 to-white/40 bg-clip-text text-transparent italic leading-none">
+    {target?.name ?? "-"}
+  </h1>
 
-            <div className="mt-4 flex items-center gap-4">
-              <div className="px-3 py-1 bg-white/5 rounded-full border border-white/5 text-xs font-mono">
-                Streak: <span className="text-accent font-bold">{score}</span>
-              </div>
-            </div>
-          </div>
+  <div className="mt-8 flex items-center gap-4">
+    <div className="px-4 py-1.5 bg-white/5 rounded-full border border-white/10 text-xs font-mono">
+      Streak: <span className="text-accent font-bold">{score}</span>
+    </div>
+  </div>
+</div>
 
           {/* MAP */}
           <div className="flex justify-center w-full">
