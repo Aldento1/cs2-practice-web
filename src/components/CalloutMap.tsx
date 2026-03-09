@@ -9,10 +9,14 @@ export default function CalloutMap() {
   const [debugMode, setDebugMode] = useState(false);
 
   const nextRound = () => {
-    const remaining = ancientCallouts.filter(c => c.id !== target.id);
+    const remaining = useMemo(
+  () => ancientCallouts.filter(c => c.id !== target.id),
+  [target]
+);
     const random = remaining[Math.floor(Math.random() * remaining.length)];
     setTarget(random || ancientCallouts[0]);
     setFeedback("neutral");
+    
   };
 
   const handleSpotClick = (id: string) => {
@@ -56,10 +60,10 @@ export default function CalloutMap() {
             </button>
           </div>
 
-          <div className="glass-card rounded-[2rem] p-10 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+          <div className="glass-card rounded-4xl p-10 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-accent/50 to-transparent" />
             <p className="text-xs font-mono text-accent uppercase tracking-widest mb-2">Current Objective</p>
-            <h1 className="text-6xl md:text-7xl font-semibold tracking-tighter bg-gradient-to-b from-white via-white/90 to-white/50 bg-clip-text text-transparent italic">
+            <h1 className="text-6xl md:text-7xl font-semibold tracking-tighter bg-linear-to-b from-white via-white/90 to-white/50 bg-clip-text text-transparent italic">
               {target.name}
             </h1>
             <div className="mt-6 flex items-center gap-4">
@@ -69,32 +73,42 @@ export default function CalloutMap() {
             </div>
           </div>
 
-          {/* MAP CONTAINER */}
-          <div className="flex justify-center w-full">
-            <div className={`relative w-full max-w-[min(100%,75vh)] aspect-square glass-card rounded-[2.5rem] overflow-hidden transition-all duration-500 shadow-2xl ${
-              feedback === 'success' ? 'border-green-500/50 scale-[1.02] shadow-[0_0_50px_rgba(34,197,94,0.1)]' : 
-              feedback === 'error' ? 'border-red-500/50 animate-shake' : 'border-white/10'
-            }`}>
-              <img 
-                src="/maps/ancient.webp" 
-                alt="Ancient Map" 
-                className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale-[0.3] contrast-[1.1]"
-              />
+{/* MAP CONTAINER */}
+<div className="flex justify-center w-full">
+  {/* Wymuszamy aspect-square, aby kontener był idealnym kwadratem */}
+  <div className={`relative w-full max-w-[min(100%,80vh)] aspect-square glass-card rounded-[2.5rem] overflow-hidden transition-all duration-500 ${
+    feedback === 'success' ? 'border-green-500/50 scale-[1.02]' : 
+    feedback === 'error' ? 'border-red-500/50 animate-shake' : 'border-white/10'
+  }`}>
+    
+    <img 
+      src="/maps/ancient.webp" 
+      alt="Ancient Map" 
+      className="absolute inset-0 w-full h-full opacity-60 grayscale-[0.3] contrast-[1.1]" 
+      // Usunięto object-cover, aby obrazek 1024x1024 pokrywał się z kontenerem procentowym
+    />
 
-              <div className="absolute inset-0">
-                {ancientCallouts.map((area) => (
-                  <button
-                    key={area.id}
-                    onClick={() => handleSpotClick(area.id)}
-                    className={`absolute transition-all ${
-                      debugMode ? 'bg-accent/20 border border-accent/40' : 'hover:bg-accent/10'
-                    } ${target.id === area.id && debugMode ? 'bg-accent/60 z-10 border-white' : ''}`}
-                    style={{ top: `${area.top}%`, left: `${area.left}%`, width: `${area.width}%`, height: `${area.height}%`, borderRadius: '4px' }}
-                  >
-                    {debugMode && <span className="text-[8px] font-bold text-white opacity-50">{area.id.slice(0,3)}</span>}
-                  </button>
-                ))}
-              </div>
+    <div className="absolute inset-0">
+      {ancientCallouts.map((area) => (
+        <button
+          key={area.id}
+          onClick={() => handleSpotClick(area.id)}
+          className={`absolute transition-all flex items-center justify-center ${
+            debugMode ? 'bg-accent/20 border border-accent/40' : 'hover:bg-accent/10'
+          } ${target.id === area.id && debugMode ? 'bg-accent/60 z-10 border-white ring-2 ring-accent' : ''}`}
+          style={{ 
+            top: `${area.top}%`, 
+            left: `${area.left}%`, 
+            width: `${area.width}%`, 
+            height: `${area.height}%`,
+            transform: 'translate(-50%, -50%)', // Centrowanie przycisku na etykiecie
+            borderRadius: '4px' 
+          }}
+        >
+          {debugMode && <span className="text-[9px] font-bold text-white shadow-black drop-shadow-md">{area.id.slice(0,3)}</span>}
+        </button>
+      ))}
+    </div>
               
               <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.8)]" />
             </div>
@@ -103,7 +117,7 @@ export default function CalloutMap() {
 
         {/* RIGHT PANEL: Sidebar (Bento Small) */}
         <div className="lg:col-span-4 h-full">
-          <div className="glass-card rounded-[2rem] flex flex-col h-[85vh] sticky top-8">
+          <div className="glass-card rounded-4xl flex flex-col h-[85vh] sticky top-8">
             <div className="p-6 border-b border-white/5">
               <h2 className="text-sm font-semibold text-white/90">Navigation</h2>
               <p className="text-xs text-white/40">Select callout to inspect</p>

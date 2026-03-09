@@ -1,1 +1,6 @@
-import CalloutMap from "../../components/CalloutMap"; export default function Page() { return <CalloutMap />; } 
+import dynamic from "next/dynamic";
+
+const CalloutMap = dynamic(
+  () => import("../../components/CalloutMap"),
+  { ssr: false }
+);
