@@ -37,7 +37,7 @@ export default function CalloutMap() {
       }`}>
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-80" 
-          style={{ backgroundImage: "url('/maps/ancient-radar.jpg')" }} 
+          style={{ backgroundImage: "url('/maps/ancient.webp')" }} 
         />
         
         {ancientCallouts.map((area) => (
